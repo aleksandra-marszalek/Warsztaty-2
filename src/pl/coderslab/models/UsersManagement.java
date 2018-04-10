@@ -82,11 +82,11 @@ public class UsersManagement {
 					userNew.showUser();
 					System.out.println("\nWrite yes to delete / no to abort: ");
 					String decision = scan.nextLine();
-					while (!decision.equals("yes") && !decision.equals("no")) {
+					while (!decision.equalsIgnoreCase("yes") && !decision.equalsIgnoreCase("no")) {
 						System.out.println("\nWrite yes to delete / no to abort: ");
 						decision = scan.nextLine();
 					}
-					if (decision.equals("yes")) {
+					if (decision.equalsIgnoreCase("yes")) {
 						userNew.delete(conn);
 						System.out.println("You have deleted the chosen user.");
 					} else {
