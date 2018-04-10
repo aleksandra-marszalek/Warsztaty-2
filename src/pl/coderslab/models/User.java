@@ -14,8 +14,10 @@ public class User {
 	private String username;
 	private String email;
 	private String password;
+	private int user_group_id;
 	
 
+	
 	public String getUsername() {
 		return username;
 	}
@@ -34,17 +36,25 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	public User(String username, String email,  String password) {
+	public int getUser_group_id() {
+		return user_group_id;
+	}
+	public void setUser_group_id(int user_group_id) {
+		this.user_group_id = user_group_id;
+	}
+	
+	public User(String username, String email,  String password, int user_group_id) {
 		this.username = username;
 		this.email = email;
 		this.setPassword(password);
+		this.user_group_id = user_group_id;
 	}
 	public User() {
 		
 	}
 	public void saveToDB(Connection conn) throws SQLException { 
 		if (this.id == 0) {
-			String sql = "INSERT INTO Users(username, email, password) VALUES (?, ?, ?)"; 
+			String sql = "INSERT INTO Users(username, email, password, user_group_id) VALUES (?, ?, ?, ?)"; 
 			// jakie kolumny baza zwróci po zapisie nowego obiektu - w tym wypadku id
 			String generatedColumns[] = { "ID" };
 			PreparedStatement preparedStatement;
@@ -52,6 +62,7 @@ public class User {
 			preparedStatement.setString(1, this.username);
 			preparedStatement.setString(2, this.email);
 			preparedStatement.setString(3, this.password); 
+			preparedStatement.setInt(4, this.user_group_id);
 			preparedStatement.executeUpdate();
 			
 			//wyrzuca w resultsecie generatedColumns
@@ -62,13 +73,14 @@ public class User {
 				this.id = rs.getInt(1); 
 				}
 			} else {
-			 String sql = "UPDATE Users SET username=?, email=?, password=? where id = ?"; 
+			 String sql = "UPDATE Users SET username=?, email=?, password=?, user_group_id=? where id = ?"; 
 			 PreparedStatement preparedStatement;
 			 preparedStatement = conn.prepareStatement(sql); 
 			 preparedStatement.setString(1, this.username);
 			 preparedStatement.setString(2, this.email);
 			 preparedStatement.setString(3, this.password);
-			 preparedStatement.setInt(4, this.id);
+			 preparedStatement.setInt(4, this.user_group_id);
+			 preparedStatement.setInt(5, this.id);
 			 preparedStatement.executeUpdate();
 			 }
 		}
@@ -91,6 +103,7 @@ public class User {
 			loadedUser.username = resultSet.getString("username"); 
 			loadedUser.password = resultSet.getString("password"); 
 			loadedUser.email = resultSet.getString("email"); 
+			loadedUser.user_group_id = resultSet.getInt("user_group_id");
 			return loadedUser;
 			}
 		
@@ -109,6 +122,7 @@ public class User {
 			loadedUser.username = resultSet.getString("username"); 
 			loadedUser.password = resultSet.getString("password"); 
 			loadedUser.email = resultSet.getString("email"); 
+			loadedUser.user_group_id = resultSet.getInt("user_group_id");
 			users.add(loadedUser);
 			}
 		// tworzą tablicę o takiej samej wielkosci co lista
