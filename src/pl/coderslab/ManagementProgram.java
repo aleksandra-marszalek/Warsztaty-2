@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import pl.coderslab.models.Excercise;
+import pl.coderslab.models.ExcerciseAssigning;
 import pl.coderslab.models.ExcerciseManagement;
 import pl.coderslab.models.GroupsManagement;
 import pl.coderslab.models.UsersManagement;
@@ -22,11 +23,13 @@ public class ManagementProgram {
 				+ "u - if you want to manage the users.\n"
 				+ "e - if you want to manage the excercises.\n"
 				+ "g - if you want to manage the groups.\n"
+				+ "a - for assigning the excercises\n"
 				+ "q - if you want to quit.");
 		Scanner scan = new Scanner(System.in);
 		String input = scan.nextLine();
-		while (!input.equalsIgnoreCase("u") && !input.equalsIgnoreCase("e") && !input.equalsIgnoreCase("g") && !input.equalsIgnoreCase("q")) {
-			System.out.println("Wrong input. Please choose again: u/e/g/q: ");
+		while (!input.equalsIgnoreCase("u") && !input.equalsIgnoreCase("e") && !input.equalsIgnoreCase("g") && 
+				!input.equalsIgnoreCase("a") && !input.equalsIgnoreCase("q")) {
+			System.out.println("Wrong input. Please choose again: u/e/g/q/a: ");
 			input = scan.nextLine();
 		}
 		while (!input.equalsIgnoreCase("q")) {
@@ -42,6 +45,8 @@ public class ManagementProgram {
 					//if the users input is delete - asks for the id nr and saves user data to new user object		
 						} else if (input.equalsIgnoreCase("u")) {
 							UsersManagement.usersManagement();
+						} else if (input.equalsIgnoreCase("a")) {
+							ExcerciseAssigning.excerciseAssignment();
 						}
 							
 					// try catch - not to break the program if the input is incorrect --> it sends the user to another command	
@@ -57,6 +62,7 @@ public class ManagementProgram {
 								+ "u - for managing users\n"
 								+ "e - for managing excercises\n"
 								+ "g - for managing groups\n"
+								+ "a - for assigning the excercises\n"
 								+ "q - to quit.");
 						input = scan.nextLine();
 						
