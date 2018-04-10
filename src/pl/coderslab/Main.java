@@ -74,8 +74,8 @@ public class Main {
 			
 		//Solution[] newSolution = Solution.loadAllByUserId(conn, 5);
 		//newSolution[0].showSolution();
-		Solution[] newSolution = Solution.loadAllByExcerciseId(conn, 2);
-		newSolution[0].showSolution();
+		//Solution[] newSolution = Solution.loadAllByExcerciseId(conn, 2);
+		//newSolution[0].showSolution();
 		//User[] newUser = User.loadAllbyGroupId(conn, 1);
 		//newUser[1].showUser();
 		
