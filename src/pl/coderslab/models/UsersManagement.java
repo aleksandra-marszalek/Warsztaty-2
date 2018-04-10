@@ -114,15 +114,15 @@ public class UsersManagement {
 				} 
 				
 			// ask if there is anything else the user would like to do - if quit - the program stops
-				System.out.println("Would you like do anything else? Please choose right command: add/edit/delete/quit: ");
+				System.out.println("Would you like to do anything else? Please choose right command: add/edit/delete/quit: ");
 				input1 = scan.nextLine();
 				
 			
 			}
 			
 			// confirmation that the program has stopped.
-			System.out.println("You have quit the program. See you later!");
-			scan.close();
+			System.out.println("You have quit the user manager. See you later!");
+			
 		
 		} catch (Exception e) {
 			System.out.println("Error! Please try again later! "+ e.getMessage());
