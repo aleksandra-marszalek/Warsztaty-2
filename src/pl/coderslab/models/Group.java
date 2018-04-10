@@ -29,7 +29,7 @@ public class Group {
 	
 	//additional method to print the actual group data
 		public void showGroup() {
-			System.out.println("name: " + getName());
+			System.out.println("id: " + getId() + ", name: " + getName());
 		}
 	
 	public void saveToDB(Connection conn) throws SQLException { 
