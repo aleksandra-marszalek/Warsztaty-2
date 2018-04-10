@@ -34,6 +34,14 @@ public class Solution {
 		return updated;
 	}
 	
+	public void setCreated(String created) {
+		this.created = created;
+	}
+
+	public void setUpdated(String updated) {
+		this.updated = updated;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -63,7 +71,7 @@ public class Solution {
 	
 	public void saveToDB(Connection conn) throws SQLException { 
 		if (this.id == 0) {
-			String sql = "INSERT INTO Solution (created, updated, description, excercise_id, users_id) VALUES (NOW(), NOW(), ?, ?, ?)"; 
+			String sql = "INSERT INTO Solution (created, description, excercise_id, users_id) VALUES (NOW(), ?, ?, ?)"; 
 			// jakie kolumny baza zwróci po zapisie nowego obiektu - w tym wypadku id
 			String generatedColumns[] = { "ID" };
 			PreparedStatement preparedStatement;
