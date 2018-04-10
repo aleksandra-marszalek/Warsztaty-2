@@ -52,6 +52,12 @@ public class User {
 	public User() {
 		
 	}
+	
+	//additional method to print the actual user data
+	public void showUser() {
+		System.out.println("Username: " + getUsername() + ", email: " + getEmail() + ", password: " + getPassword() + ", user_group_id: " + getUser_group_id());
+	}
+	
 	public void saveToDB(Connection conn) throws SQLException { 
 		if (this.id == 0) {
 			String sql = "INSERT INTO Users(username, email, password, user_group_id) VALUES (?, ?, ?, ?)"; 
@@ -141,5 +147,32 @@ public class User {
 			this.id=0; 
 		}
 	}
+	
+	static public User[] loadAllbyGroupId(Connection conn, int id) throws SQLException {
+		ArrayList<User> users = new ArrayList<User>();
+		String sql = "select users.id, username, email, password, user_group_id from Users join user_group on users.user_group_id = user_group.id where user_group_id=?;"; 
+		PreparedStatement preparedStatement;
+		
+		//przygotowanie Statementu z podanego stringa sql
+		preparedStatement = conn.prepareStatement(sql); 
+		preparedStatement.setInt(1, id);
+		ResultSet resultSet = preparedStatement.executeQuery(); 
+		
+		
+		while (resultSet.next()) {
+			User loadedUser = new User();
+			loadedUser.id = resultSet.getInt("id"); 
+			loadedUser.username = resultSet.getString("username"); 
+			loadedUser.email = resultSet.getString("email"); 
+			loadedUser.password = resultSet.getString("password");
+			loadedUser.user_group_id = resultSet.getInt("user_group_id");
+			users.add(loadedUser);
+			}
+		// tworzą tablicę o takiej samej wielkosci co lista
+		User[] uArray = new User[users.size()]; 
+		// przekopiowują listę do tablicy
+		uArray = users.toArray(uArray); 
+		return uArray;
+		}
 		 
 }

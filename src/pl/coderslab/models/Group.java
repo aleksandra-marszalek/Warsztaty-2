@@ -27,6 +27,11 @@ public class Group {
 		return id;
 	}
 	
+	//additional method to print the actual group data
+		public void showGroup() {
+			System.out.println("name: " + getName());
+		}
+	
 	public void saveToDB(Connection conn) throws SQLException { 
 		if (this.id == 0) {
 			String sql = "INSERT INTO User_Group (name) VALUES (?)"; 

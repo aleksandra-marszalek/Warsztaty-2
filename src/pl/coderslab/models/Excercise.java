@@ -34,6 +34,11 @@ public class Excercise {
 		
 	}
 	
+	//additional method to print the actual excercise data
+		public void showExcercise() {
+			System.out.println("Id: " + getId() + ", title: " + getTitle() + ", description: " + getDescription());
+		}
+	
 	public void saveToDB(Connection conn) throws SQLException { 
 		if (this.id == 0) {
 			String sql = "INSERT INTO Excercise(title, description) VALUES (?, ?)"; 

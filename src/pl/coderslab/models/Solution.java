@@ -1,7 +1,6 @@
 package pl.coderslab.models;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +8,8 @@ import java.util.ArrayList;
 
 public class Solution {
 	private int id;
-	private Date created;
-	private Date updated;
+	private String created;
+	private String updated;
 	private String description;
 	private int excercise_id;
 	private int users_id;
@@ -27,11 +26,11 @@ public class Solution {
 		
 	}
 	
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 	
-	public Date getUpdated() {
+	public String getUpdated() {
 		return updated;
 	}
 	
@@ -55,6 +54,11 @@ public class Solution {
 	}
 	public int getId() {
 		return id;
+	}
+	
+	//additional method to print the actual user data
+	public void showSolution() {
+		System.out.println("Id: " + getId() + ", created: " + getCreated() + ", updated: " + getUpdated() + ", description: " + getDescription() + ", users_id: " + getUsers_id() + ", excercise_id: " + getExcercise_id());
 	}
 	
 	public void saveToDB(Connection conn) throws SQLException { 
@@ -106,6 +110,8 @@ public class Solution {
 			loadedSolution.description = resultSet.getString("description"); 
 			loadedSolution.excercise_id = resultSet.getInt("excercise_id"); 
 			loadedSolution.users_id = resultSet.getInt("users_id"); 
+			loadedSolution.created = resultSet.getString("created");
+			loadedSolution.updated = resultSet.getString("updated");
 			return loadedSolution;
 			}
 		
@@ -124,6 +130,8 @@ public class Solution {
 			loadedSolution.description = resultSet.getString("description"); 
 			loadedSolution.excercise_id = resultSet.getInt("excercise_id"); 
 			loadedSolution.users_id = resultSet.getInt("users_id");
+			loadedSolution.created = resultSet.getString("created");
+			loadedSolution.updated = resultSet.getString("updated");
 			solutions.add(loadedSolution);
 			}
 		// tworzą tablicę o takiej samej wielkosci co lista
@@ -141,5 +149,60 @@ public class Solution {
 			preparedStatement.executeUpdate();
 			this.id=0; 
 		}
+	}
+	static public Solution[] loadAllByUserId (Connection conn, int id) throws SQLException {
+		ArrayList<Solution> solutions = new ArrayList<Solution>();
+		String sql = "select created, updated, description, username, users_id, excercise_id, users.id from solution join users on solution.users_id=users.id where solution.users_id =?;"; 
+		PreparedStatement preparedStatement;
+		
+		//przygotowanie Statementu z podanego stringa sql
+		preparedStatement = conn.prepareStatement(sql); 
+		preparedStatement.setInt(1, id);
+		// wczytanie selecta 
+		ResultSet resultSet = preparedStatement.executeQuery(); 
+		
+		while (resultSet.next()) {
+			Solution loadedSolution = new Solution();
+			loadedSolution.id = resultSet.getInt("id"); 
+			loadedSolution.description = resultSet.getString("description"); 
+			loadedSolution.users_id = resultSet.getInt("users_id");
+			loadedSolution.excercise_id = resultSet.getInt("excercise_id");
+			loadedSolution.created = resultSet.getString("created");
+			loadedSolution.updated = resultSet.getString("updated");
+			solutions.add(loadedSolution);
+			}
+		// tworzą tablicę o takiej samej wielkosci co lista
+		Solution[] uArray = new Solution[solutions.size()]; 
+		// przekopiowują listę do tablicy
+		uArray = solutions.toArray(uArray); 
+		return uArray;
+	}
+	
+	static public Solution[] loadAllByExcerciseId (Connection conn, int id) throws SQLException {
+		ArrayList<Solution> solutions = new ArrayList<Solution>();
+		String sql = "select created, updated, solution.description, users_id, excercise_id, excercise.id from solution join excercise on solution.excercise_id=excercise.id where solution.excercise_id =?;"; 
+		PreparedStatement preparedStatement;
+		
+		//przygotowanie Statementu z podanego stringa sql
+		preparedStatement = conn.prepareStatement(sql); 
+		preparedStatement.setInt(1, id);
+		// wczytanie selecta 
+		ResultSet resultSet = preparedStatement.executeQuery(); 
+		
+		while (resultSet.next()) {
+			Solution loadedSolution = new Solution();
+			loadedSolution.id = resultSet.getInt("id"); 
+			loadedSolution.description = resultSet.getString("solution.description"); 
+			loadedSolution.users_id = resultSet.getInt("users_id");
+			loadedSolution.excercise_id = resultSet.getInt("excercise_id");
+			loadedSolution.created = resultSet.getString("created");
+			loadedSolution.updated = resultSet.getString("updated");
+			solutions.add(loadedSolution);
+			}
+		// tworzą tablicę o takiej samej wielkosci co lista
+		Solution[] uArray = new Solution[solutions.size()]; 
+		// przekopiowują listę do tablicy
+		uArray = solutions.toArray(uArray); 
+		return uArray;
 	}
 }

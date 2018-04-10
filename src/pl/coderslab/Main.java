@@ -12,8 +12,10 @@ import pl.coderslab.models.User;
 
 
 public class Main {
+		
 	
 	public static void main(String[] args) {
+		
 	
 		User user = new User();
 		user.setUsername("Jan Kowalsky");
@@ -51,6 +53,7 @@ public class Main {
 		
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/workshop_2?useSSL=false",
 	            "root", "coderslab")) {
+	
 		//user2.saveToDB(conn);
 		//System.out.println(User.loadUserById(conn, 3).getUsername());
 		//System.out.println((User.loadAllUsers(conn))[0].getUsername());
@@ -69,8 +72,12 @@ public class Main {
 		//metoda usuwająca danego użytkownika
 		//userNew.delete(conn);
 			
-		user3.saveToDB(conn);
-		
+		//Solution[] newSolution = Solution.loadAllByUserId(conn, 5);
+		//newSolution[0].showSolution();
+		Solution[] newSolution = Solution.loadAllByExcerciseId(conn, 2);
+		newSolution[0].showSolution();
+		//User[] newUser = User.loadAllbyGroupId(conn, 1);
+		//newUser[1].showUser();
 		
 		
 		} catch (Exception e) {
