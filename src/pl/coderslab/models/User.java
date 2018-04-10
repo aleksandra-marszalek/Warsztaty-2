@@ -16,7 +16,9 @@ public class User {
 	private String password;
 	private int user_group_id;
 	
-
+	public int getId() {
+		return id;
+	}
 	
 	public String getUsername() {
 		return username;
@@ -55,7 +57,7 @@ public class User {
 	
 	//additional method to print the actual user data
 	public void showUser() {
-		System.out.println("Username: " + getUsername() + ", email: " + getEmail() + ", password: " + getPassword() + ", user_group_id: " + getUser_group_id());
+		System.out.println("Id: " + getId() + ", username: " + getUsername() + ", email: " + getEmail() + ", password: " + getPassword() + ", user_group_id: " + getUser_group_id());
 	}
 	
 	public void saveToDB(Connection conn) throws SQLException { 
