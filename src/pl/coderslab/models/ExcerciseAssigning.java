@@ -18,7 +18,10 @@ public class ExcerciseAssigning {
 		            "root", "coderslab")) {
 				
 				System.out.println("Welcome to the Excercise Assignment System.");
-				System.out.println("Please choose right command: add/view/quit");
+				System.out.println("Please choose right command: \n"
+						+ "add - to assign new excercise to the chosen user\n"
+						+ "view - to see all excercises of the chosen user\n"
+						+ "quit - to quit the program.");
 				Scanner scan = new Scanner(System.in);
 				String input1 = scan.nextLine();
 				while (!input1.equalsIgnoreCase("add") && !input1.equalsIgnoreCase("view") && 
@@ -63,12 +66,25 @@ public class ExcerciseAssigning {
 						System.out.println("Excercise: " + excerciseId + " has been assigned to user: " + userId);
 						
 			// if the user's input is edit - the program is asking for the id of the group to edit, then asks for new data and uses saveToDB
+			// Added full list for it to be esasier to choose the user
 					} else if (input1.equalsIgnoreCase("view")) {
+						System.out.println("Here are all the current Users: ");
+						User[] allUsers = User.loadAllUsers(conn);
+						for (int i=0; i<allUsers.length; i++) {
+							User.loadAllUsers(conn)[i].showUser();
+							System.out.println("");
+						}
 						System.out.println("Please insert the id of the User, whose Excercises you would like to see: ");
 						int excercisesToView = Integer.parseInt(scan.nextLine());
+						
 						Solution[] allExcercises = Solution.loadAllByUserId(conn, excercisesToView);
+						if (allExcercises.length == 0) {
+							System.out.println("There are no excercises for this user.");
+						} else {
+						System.out.println("Here are all Excercises assigned for this user: ");
 						for (int i=0; i<allExcercises.length; i++) {
 							allExcercises[i].showSolution();
+						}
 						}
 				
 					}

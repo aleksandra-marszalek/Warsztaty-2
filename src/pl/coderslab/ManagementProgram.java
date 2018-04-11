@@ -22,7 +22,7 @@ public class ManagementProgram {
 		System.out.println("Welcome to the Management of the Coding School Program!\nPlease insert:\n"
 				+ "u - if you want to manage the users.\n"
 				+ "e - if you want to manage the excercises.\n"
-				+ "g - if you want to manage the groups.\n"
+				+ "g - if yaou want to manage the groups.\n"
 				+ "a - for assigning the excercises\n"
 				+ "q - if you want to quit.");
 		Scanner scan = new Scanner(System.in);
