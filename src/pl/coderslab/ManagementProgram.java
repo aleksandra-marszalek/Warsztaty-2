@@ -70,8 +70,8 @@ public class ManagementProgram {
 					}
 					
 					// confirmation that the program has stopped.
-					System.out.println("You have quit the program. See you later!");
-					scan.close();
+					System.out.println("You have quit the Administrative Panel. See you later!");
+		
 				
 				} catch (Exception e) {
 					System.out.println("Error! Please try again later! "+ e.getMessage());
