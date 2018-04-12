@@ -89,7 +89,7 @@ public class Solution {
 				this.id = rs.getInt(1); 
 				}
 			} else {
-			 String sql = "UPDATE Solution SET updated=NOW(), description=?, excercise_id =?, users_id = ? where id = ?"; 
+			 String sql = "UPDATE Solution SET created=NOW(), description=?, excercise_id =?, users_id = ? where id = ?"; 
 			 PreparedStatement preparedStatement;
 			 preparedStatement = conn.prepareStatement(sql); 
 			 preparedStatement.setString(1, this.description);
@@ -201,6 +201,33 @@ public class Solution {
 			Solution loadedSolution = new Solution();
 			loadedSolution.id = resultSet.getInt("id"); 
 			loadedSolution.description = resultSet.getString("solution.description"); 
+			loadedSolution.users_id = resultSet.getInt("users_id");
+			loadedSolution.excercise_id = resultSet.getInt("excercise_id");
+			loadedSolution.created = resultSet.getString("created");
+			loadedSolution.updated = resultSet.getString("updated");
+			solutions.add(loadedSolution);
+			}
+		// tworzą tablicę o takiej samej wielkosci co lista
+		Solution[] uArray = new Solution[solutions.size()]; 
+		// przekopiowują listę do tablicy
+		uArray = solutions.toArray(uArray); 
+		return uArray;
+	}
+	static public Solution[] loadAllNotUpdatedByUserId (Connection conn, int id) throws SQLException {
+		ArrayList<Solution> solutions = new ArrayList<Solution>();
+		String sql = "select created, updated, description, username, users_id, excercise_id, users.id from solution join users on solution.users_id=users.id where solution.users_id =? and solution.updated IS null;"; 
+		PreparedStatement preparedStatement;
+		
+		//przygotowanie Statementu z podanego stringa sql
+		preparedStatement = conn.prepareStatement(sql); 
+		preparedStatement.setInt(1, id);
+		// wczytanie selecta 
+		ResultSet resultSet = preparedStatement.executeQuery(); 
+		
+		while (resultSet.next()) {
+			Solution loadedSolution = new Solution();
+			loadedSolution.id = resultSet.getInt("id"); 
+			loadedSolution.description = resultSet.getString("description"); 
 			loadedSolution.users_id = resultSet.getInt("users_id");
 			loadedSolution.excercise_id = resultSet.getInt("excercise_id");
 			loadedSolution.created = resultSet.getString("created");
