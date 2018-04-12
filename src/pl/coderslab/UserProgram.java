@@ -1,4 +1,4 @@
-package pl.coderslab.models;
+package pl.coderslab;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import pl.coderslab.models.Solution;
+import pl.coderslab.models.User;
 
 public class UserProgram { 
 	public static void main(String[] args) {

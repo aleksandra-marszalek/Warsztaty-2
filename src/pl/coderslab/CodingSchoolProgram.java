@@ -1,4 +1,4 @@
-package pl.coderslab.models;
+package pl.coderslab;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
